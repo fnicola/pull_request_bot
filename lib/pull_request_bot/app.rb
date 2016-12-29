@@ -46,7 +46,7 @@ module PullRequestBot
     post '/payload' do
       puts "test logs"
       slack_webhook = ENV["SLACK_WEBHOOK"]
-      puts slack_webhook
+      puts slack_webhook.inspect
       response = JSON.parse(request.body.read)
       if response && response["action"] == "created"
         get_info(response)
