@@ -12,13 +12,14 @@ module PullRequestBot
         @url = response["pull_request"]["html_url"]
         @author = response["pull_request"]["user"]["login"]
       elsif response["issue"]
-        @url = response["issue"]["pull_request"]["html_url"] if response["issue"]
+        @url = response["issue"]["pull_request"]["html_url"]
         @author = response ["issue"]["user"]["login"]
       end
     end
 
     def build_body
       auth_map = ENV["SLACK_MAPPING"]
+      puts author_slack.inspect
       author_slack = auth_map[@author] || "#test_bot_nicola"
       body = { "pretext" => "#{@sender} added a comment on your <#{@url}|PR>",
                "channel" => "@#{author_slack}",
@@ -43,7 +44,9 @@ module PullRequestBot
     end
 
     post '/payload' do
+      puts "test logs"
       slack_webhook = ENV["SLACK_WEBHOOK"]
+      puts slack_webhook
       response = JSON.parse(request.body.read)
       if response && response["action"] == "created"
         get_info(response)
