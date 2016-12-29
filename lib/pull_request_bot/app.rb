@@ -18,7 +18,7 @@ module PullRequestBot
     end
 
     def build_body
-      auth_map = ENV["SLACK_MAPPING"]
+      auth_map = {"fnicola" => "nicola","iambanklee" => "bank.lee","richkettle" => "richardkettle","jsturmfels" => "joel","felixfortis" => "adam","wizard2nd" => "jacob","edclements" => "ed","petrucioata" => "petru","alexandrucd" => "alexandrucreanga","francescarodricks" => "francesca","undersky0" => "richard","123gpg321" => "georgi","glenn" => "glenn"}
       puts auth_map.inspect
       author_slack = auth_map[@author] || "#test_bot_nicola"
       body = { "pretext" => "#{@sender} added a comment on your <#{@url}|PR>",
